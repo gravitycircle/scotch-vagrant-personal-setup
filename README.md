@@ -1,6 +1,6 @@
 # Personal Scotch Box Server:
 
-Currently, still vanilla, however I will be customising this as I go.
+Currently, still vanilla, however I will be customizing this as I go. Scotch is basically a LAMP server done on an Ubuntu VM ran using Vagrant's automation scripts and SSH.
 
 For more information, visit [Scotch Box](http://box.scotch.io) for more information.
 
