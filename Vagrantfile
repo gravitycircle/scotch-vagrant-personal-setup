@@ -20,15 +20,19 @@ Vagrant.configure("2") do |config|
     :nfs => { :mount_options => ["dmode=777","fmode=666"] }
 
     config.trigger.before :halt do
-        info "Dumping the database before destroying the VM..."
-        run_remote  "bash /home/vagrant/backup/scripts/db.sh"
+        confirm = '';
+        while (confirm == '')
+            confirm = ask "Confirm log entry message..."
+        end
+        info "Dumping the database before shutting down the VM..."
+        run_remote  "bash /home/vagrant/backup/scripts/db.sh "+'"'+confirm+'"'
         info "Adding new files to repository"
-        run "git add --all"
+        run "git -C /Users/richard/Documents/Websites/Backup/MySQL add --all"
         info "Committing..."
-        run "git commit -m \"DB Snapshot on shutdown.\""
+        run "git -C /Users/richard/Documents/Websites/Backup/MySQL commit -m \"DB Snapshot log: "+confirm+"\""
         info "Pushing to repository"
-        run "git push"
-        info "Done, proceeding to shutdown directive"
+        run "git -C /Users/richard/Documents/Websites/Backup/MySQL push"
+        info "Done, proceeding to shutdown directive."
     end
     
     # Optional NFS. Make sure to remove other synced_folder line too
